@@ -13,7 +13,7 @@ public class LoanCalc {
 		double rate = Double.parseDouble(args[1]);
 		int n = Integer.parseInt(args[2]);
 		System.out.println("Loan = " + loan + ", interest rate = " + rate + "%, periods = " + n);
-
+		
 		// Computes the periodical payment using brute force search
 		System.out.print("\nPeriodical payment, using brute force: ");
 		System.out.println((int) bruteForceSolver(loan, rate, n, epsilon));
@@ -29,7 +29,16 @@ public class LoanCalc {
 	// interest rate (as a percentage), the number of periods (n), and the periodical payment.
 	private static double endBalance(double loan, double rate, int n, double payment) {	
 		// Replace the following statement with your code
-		return 0;
+		int years=n;
+		double remaintopay=loan;
+		double rt=1+(rate/100);
+		while(years>0)
+		{
+			remaintopay=(remaintopay-payment)*rt;
+			years--;
+		}
+
+		return remaintopay;
 	}
 	
 	// Uses sequential search to compute an approximation of the periodical payment
@@ -39,7 +48,14 @@ public class LoanCalc {
 	// Side effect: modifies the class variable iterationCounter.
     public static double bruteForceSolver(double loan, double rate, int n, double epsilon) {
 		// Replace the following statement with your code
-		return 0;
+		double g=loan/n;
+		iterationCounter=0;
+		while(endBalance(loan, rate, n, g)>0)
+		{
+			g=g+epsilon;
+			iterationCounter++;
+		}
+		return g;
     }
     
     // Uses bisection search to compute an approximation of the periodical payment 
@@ -49,6 +65,23 @@ public class LoanCalc {
 	// Side effect: modifies the class variable iterationCounter.
     public static double bisectionSolver(double loan, double rate, int n, double epsilon) {  
         // Replace the following statement with your code
-		return 0;
+		double lo=loan/n;
+		double hi=(loan/n)*2.0;
+		double mid=(lo+hi)/2.0;
+		iterationCounter=0;
+		while(hi-lo>epsilon)
+		{
+			if(endBalance(loan, rate, n, mid)*endBalance(loan, rate, n, lo)>0)
+			{
+				lo=mid;
+			}
+			else
+			{
+				hi=mid;
+			}
+			mid=(lo+hi)/2.0;
+			iterationCounter++;
+		}
+		return mid;
     }
 }
