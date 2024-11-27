@@ -30,7 +30,14 @@ public class Algebra {
 		int sum=x1;
 		while(cnt>0)
 		{
-			sum++;
+			if(x2>0)
+			{
+				sum++;
+			}
+			else
+			{
+				sum--;
+			}
 			cnt--;
 		}
 		return sum;
@@ -43,7 +50,15 @@ public class Algebra {
 		int sum=x1;
 		while(cnt>0)
 		{
-			sum--;
+			if(x2>0)
+			{
+				sum--;
+			}
+			else
+			{
+				sum++;
+			}
+			
 			cnt--;
 		}
 		return sum;
@@ -55,11 +70,16 @@ public class Algebra {
 		// Replace the following statement with your code
 		int cnt=x2;
 		int total=0;
+		if(x2<0)cn2*=(-1);
 		while(cnt>0)
 		{
-			total=plus(total,x1);
+
+			total=plus(total,x1); 
+			
+			
 			cnt--;
 		}
+		if(x2<0)total*=(-1);
 		return total;
 	}
 
@@ -68,12 +88,15 @@ public class Algebra {
 		// Replace the following statement with your code
 		int cnt=n;
 		int total=x;
+		
 		while(cnt>1)
 		{
 			total=times(total, x);
 			cnt--;
+			
 
 		}
+		if(cnt==0)total=1;
 		return total;
 	}
 
